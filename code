@@ -53,5 +53,11 @@ WHERE cf.name LIKE 'Tennis Court%' AND
 	  cb.starttime < DATE '2012-09-22'
 ORDER BY starttime;
 
-8.
+8.How can you output a list of all members who have recommended another member? Ensure that there are no duplicates in the list, and that results are ordered by (surname, firstname).
+SELECT DISTINCT rec.firstname AS firstname, 
+		rec.surname AS surname 
+FROM cd.members memb
+JOIN cd.members rec ON rec.memid = memb.recommendedby
+ORDER BY surname, firstname;
+
 
