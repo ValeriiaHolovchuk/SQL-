@@ -60,4 +60,13 @@ FROM cd.members memb
 JOIN cd.members rec ON rec.memid = memb.recommendedby
 ORDER BY surname, firstname;
 
+9. How can you output a list of all members, including the individual who recommended them (if any)? Ensure that results are ordered by (surname, firstname).
+SELECT mms.firstname AS memfname, 
+	   mms.surname AS memsname,
+	   rec.firstname AS recfname,
+	   rec.surname AS recsname
+FROM cd.members mms
+LEFT OUTER JOIN cd.members rec ON mms.recommendedby = rec.memid
+ORDER BY memsname, memfname;
+
 
