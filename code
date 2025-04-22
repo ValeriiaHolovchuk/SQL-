@@ -42,5 +42,16 @@ WHERE memid =
 		(SELECT memid
 		 FROM cd.members
 		 WHERE surname = 'Farrell' AND firstname = 'David');
-	 
+
+7. How can you produce a list of the start times for bookings for tennis courts, for the date '2012-09-21'? Return a list of start time and facility name pairings, ordered by the time.
+SELECT cb.starttime AS start, 
+	   cf.name
+FROM cd.bookings cb
+JOIN cd.facilities cf ON cb.facid = cf.facid
+WHERE cf.name LIKE 'Tennis Court%' AND 
+	  cb.starttime >= DATE '2012-09-21' AND 
+	  cb.starttime < DATE '2012-09-22'
+ORDER BY starttime;
+
+8.
 
