@@ -97,3 +97,15 @@ WHERE cdb.starttime >= '2012-09-14' AND cdb.starttime < '2012-09-15' AND
 			ELSE cdf.membercost
 			END > 30
 ORDER BY cost DESC;
+
+
+12. How can you output a list of all members, including the individual who recommended them (if any), without using any joins? Ensure that there are no duplicates in the list, and that each firstname + surname pairing is formatted as a column and ordered.
+SELECT DISTINCT CONCAT (cdm1.firstname, ' ' ,cdm1.surname) AS member,
+	   (SELECT CONCAT (cdm2.firstname, ' ' ,cdm2.surname) 
+	    FROM cd.members cdm2
+	    WHERE cdm2.memid = cdm1.recommendedby) AS recommender
+FROM cd.members cdm1
+ORDER BY member;
+
+
+		
