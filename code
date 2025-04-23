@@ -78,4 +78,22 @@ JOIN cd.facilities cdf ON cdb.facid = cdf.facid
 WHERE cdf.name LIKE 'Tennis Court%'
 ORDER BY member, facility;
 
-11.
+11. How can you produce a list of bookings on the day of 2012-09-14 which will cost the member (or guest) more than $30? Remember that guests have different costs to members (the listed costs are per half-hour 'slot'), and the guest user is always ID 0. Include in your output the name of the facility, the name of the member formatted as a single column, and the cost. Order by descending cost, and do not use any subqueries.
+SELECT CONCAT(cdm.firstname, ' ', cdm.surname) AS member, 
+	      cdf.name AS facility,
+	      cdb.slots *
+		CASE 
+			WHEN cdm.memid = 0 THEN cdf.guestcost
+			ELSE cdf.membercost
+			END AS cost
+			  	
+FROM cd.members cdm
+JOIN cd.bookings cdb ON cdm.memid = cdb.memid
+JOIN cd.facilities cdf ON cdb.facid = cdf.facid
+WHERE cdb.starttime >= '2012-09-14' AND cdb.starttime < '2012-09-15' AND 
+	   cdb.slots *
+		CASE 
+			WHEN cdm.memid = 0 THEN cdf.guestcost
+			ELSE cdf.membercost
+			END > 30
+ORDER BY cost DESC;
