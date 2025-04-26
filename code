@@ -137,4 +137,8 @@ INSERT INTO
 VALUES
 	((SELECT MAX(facid)+1 FROM cd.facilities), 'Spa', 20, 30, 100000, 800)
 
+15. How can we make that more general, to delete all members who have never made a booking?
+DELETE 
+FROM cd.members 
+WHERE memid NOT IN (SELECT memid FROM cd.bookings)
 		
