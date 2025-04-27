@@ -140,5 +140,14 @@ VALUES
 15. How can we make that more general, to delete all members who have never made a booking?
 DELETE 
 FROM cd.members 
+
+16. Produce a count of the number of recommendations each member has made. Order by member ID.
+SELECT recommendedby, 
+       COUNT(*) AS count
+FROM cd.members
+WHERE recommendedby IS NOT NULL
+GROUP BY recommendedby
+ORDER BY recommendedby
+
 WHERE memid NOT IN (SELECT memid FROM cd.bookings)
 		
