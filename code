@@ -218,3 +218,12 @@ WHERE EXTRACT(YEAR FROM starttime) = 2012
 GROUP BY ROLLUP(facid, month)
 ORDER BY facid, month;
 
+24.Produce a list of the total number of hours booked per facility, remembering that a slot lasts half an hour. The output table should consist of the facility id, name, and hours booked, sorted by facility id. Try formatting the hours to two decimal places.
+SELECT cdf.facid, 
+	cdf.name,
+	ROUND(SUM(slots)/2.00, 2) AS "Total Hours"
+FROM cd.bookings cdb
+JOIN cd.facilities cdf ON cdf.facid = cdb.facid
+GROUP BY cdf.facid, cdf.name
+ORDER BY facid;
+
