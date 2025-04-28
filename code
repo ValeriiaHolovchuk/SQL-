@@ -193,5 +193,20 @@ JOIN cd.facilities cdf ON cdb.facid = cdf.facid
 GROUP BY cdf.name
 ORDER BY revenue;
 
+22.Produce a list of facilities with a total revenue less than 1000. Produce an output table consisting of facility name and revenue, sorted by revenue. Remember that there's a different cost for guests and members!
+SELECT cdf.name, SUM(slots *
+			CASE 
+				WHEN memid = 0 THEN cdf.guestcost
+				ELSE cdf.membercost
+			END) AS revenue
+FROM cd.bookings cdb
+JOIN cd.facilities cdf ON cdb.facid = cdf.facid
+GROUP BY cdf.name
+HAVING SUM(slots *
+		CASE 
+			WHEN memid = 0 THEN cdf.guestcost
+			ELSE cdf.membercost
+		END) < 1000
+ORDER BY revenue;
 
 
